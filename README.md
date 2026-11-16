@@ -1,53 +1,65 @@
 # Court Notes｜籃球戰術拆解室
 
-給業餘球友閱讀的靜態戰術筆記。以互動五人半場圖，逐步介紹擋拆、傳切與手遞手，並提供分類搜尋、戰術比較、角色站位、判讀提示與來源。
+把配合，變成共同語言。
 
-## 專案規則
-先讀 [AGENTS.md](AGENTS.md)。本專案有意依課堂要求，先建立規則，再製作內容與頁面，最後按相同規則新增單元。網頁本身不呼叫LLM；AI是開發協作者，AGENTS.md是讓協作者接續工作的規則，並非瀏覽器會執行的程式。
+Court Notes 是為業餘籃球愛好者設計的戰術學習網站。透過互動半場戰術板，將站位、跑動與傳球拆成可逐步閱讀的教學內容，協助使用者理解不同配合的目的與選擇。
 
-## 使用
-- 線上版本：由本次對話提供的預覽連結開啟。私人預覽不能替代老師可公開開啟的作業網址。
-- 本機：直接以瀏覽器開啟 `dist/index.html` 即可。戰術資料已內嵌，不需要伺服器、API金鑰或第三方套件。
-- 首頁有戰術切換、逐步／播放／暫停／重播、關鍵字與分類篩選、加入／移出比較；每個戰術有獨立頁面。
+## 主要功能
 
-## 檔案與新增方法
-- `content/<slug>.md`：先寫內容稿。
-- `data/plays.json`：戰術權威資料；新增一筆即會加入目錄和比較選項。
-- `templates/`：兩種頁面模板。`src/assets/`：共用CSS與JS。
-- `scripts/build.py`：產生網站到dist。`scripts/check.py`：檢查資料、圖解及連結。
-- `evidence/extension.md`：實際新增手遞手單元的紀錄，避免只宣稱規則可用。
+- **互動戰術板**：逐步查看五名球員的位置、移動方向與持球狀態，支援播放、暫停及重播。
+- **戰術分類與搜尋**：依配合類型或關鍵字尋找內容。
+- **多戰術比較**：對照不同戰術的目標、適合陣容、優點與風險。
+- **完整教學單元**：每個戰術包含角色站位、執行步驟、防守判讀、常見錯誤及參考來源。
+- **響應式版面**：依螢幕寬度調整閱讀與操作配置。
 
-新增戰術前，請讓AI讀AGENTS.md及現有內容稿，核對教材後新增內容與資料，執行：
+## 戰術單元
+
+| 戰術 | 英文名稱 | 學習重點 |
+|---|---|---|
+| 擋拆 | Pick & Roll | 利用持球掩護，理解突破、順下與外圍接應的選擇。 |
+| 傳切 | Give & Go | 傳球後持續移動，建立切入與回傳的配合。 |
+| 手遞手 | Dribble Handoff | 掌握近距離交球、移動接球與後續進攻的銜接。 |
+
+## 使用方式
+
+以瀏覽器開啟根目錄的 `index.html`，即可瀏覽網站。
+
+網站使用原生 HTML、CSS 與 JavaScript，戰術資料已內嵌於頁面，瀏覽時不需要後端服務、API 金鑰或額外套件。
+
+## 專案結構
+
+| 路徑 | 用途 |
+|---|---|
+| `index.html` | 網站首頁與戰術目錄。 |
+| `plays/` | 各戰術的獨立教學頁面。 |
+| `assets/` | 發布網站使用的樣式與互動程式。 |
+| `about/` | 網站介紹與來源說明。 |
+| [AGENTS.md](AGENTS.md) | 開發與內容維護規則。 |
+| `content/` | 各戰術的內容稿。 |
+| `data/plays.json` | 戰術資料與逐步圖解設定。 |
+| `templates/` | 首頁與戰術頁的共用模板。 |
+| `src/assets/` | 共用樣式與互動程式的原始檔。 |
+| `scripts/` | 網站建置、檢查及匯出工具。 |
+| [CHANGELOG.md](CHANGELOG.md) | 專案修改紀錄。 |
+
+## 內容維護
+
+新增或修改戰術前，先閱讀 [AGENTS.md](AGENTS.md)，依照既有規格整理內容稿，再更新 `data/plays.json`。
+
+使用 Python 3 執行建置與檢查，不需要安裝第三方 Python 套件：
 
 ```sh
 python3 scripts/build.py
 python3 scripts/check.py
 ```
 
-再用瀏覽器確認圖、文字與操作一致。若要產生GitHub可直接上傳的完整檔案包：
+建置結果位於 `dist/`。確認圖文、互動與連結後，將產生的網站內容同步至發布根目錄。共用模板與樣式讓新增單元維持一致，首頁目錄與比較選項也會隨戰術資料更新。
 
-```sh
-python3 scripts/export.py
-```
+## 參考資料
 
-## GitHub Pages繳交流程
-1. 在自己的GitHub建立公開儲存庫，建議名稱 `basketball-playbook`。
-2. 解壓 `Basketball_Playbook_Project.zip`。將裡面的檔案與資料夾直接上傳到儲存庫根目錄；不要只上傳ZIP，也不要再套一層資料夾。
-3. 確認儲存庫根目錄有 `index.html` 與 `AGENTS.md`。
-4. Settings → Pages → Source：Deploy from a branch → Branch：main → Folder：/(root) → Save。
-5. 等部署成功，使用GitHub Pages實際顯示的網址，測試首頁、三個單元及比較功能。
-6. 繳交Repository、公開網站、AGENTS.md三種連結及SUBMISSION.md中的介紹。未上傳前，檔案中的網址空格不是已完成的連結。
+- [FIBA／WABC Level 1 Coaching Manual](https://assets.fiba.basketball/image/upload/documents-corporate-wabc-coaching-level-manuals-level-1-eng.pdf)：持球掩護與相關進攻選項。
+- [Jr. NBA — Rookie Practice Plan 5](https://jr.nba.com/basketball-practice-plans/rookie/page/5/)：傳切配合。
+- [Jr. NBA — Starter Practice Plan 9](https://jr.nba.com/basketball-practice-plans/starter/page/9/)：傳球後的切入與手遞手判斷。
 
-以後修改原始碼並重建時，網站產出在dist/。執行export.py後重新上傳最新檔案，或將dist/內容同步到GitHub發布根目錄。
+各單元頁面另列出教材所支持的觀念。本站的五人配置、路徑與步驟時序為簡化教學安排，非真實比賽追蹤資料；戰術比較不代表得分保證或實測成功率。
 
-## 來源與合理範圍
-- 擋拆原理：FIBA／WABC Level 1，2.2.10，持球掩護選項。
-- 傳切原理：Jr. NBA Rookie Practice Plan 5，Give & Go Drill。
-- 手遞手原理：Jr. NBA Starter Practice Plan 9，Pass & Cut Decision Game。
-完整連結與支持範圍列於各單元及data/plays.json。本站圖解、五人站位、時序、判讀與利弊比較為原創教學整理，沒有真實比賽軌跡、勝率或得分保證。
-
-專案規則組織方式參考：
-- https://github.com/diveai-lab/diveai-lessons/blob/main/CLAUDE.md
-- https://github.com/diveai-lab/diveai-lessons/blob/main/README.md
-課程示範參考：https://github.com/22Fatcorgi/AI-Demo
-不沿用老師的吉祥物、品牌素材或專屬協作環境設定。
